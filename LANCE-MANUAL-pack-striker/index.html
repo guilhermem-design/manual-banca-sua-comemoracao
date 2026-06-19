@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>A Manual paga a sua festa · LANCE! MANUAL®</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%233DDC6F'/><text x='50' y='74' font-size='66' text-anchor='middle' font-family='Arial,sans-serif' font-weight='900' fill='%23071711'>L</text></svg>">
+<meta name="description" content="Reúna a galera, vire cliente Manual antes do apito inicial e a festa pra ver o jogo é por nossa conta.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,400;0,500;0,600;0,800;1,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --field:#0C2419; --field-deep:#071711; --paper:#F2EFE6; --paper-2:#E9E4D6;
+  --verde:#3DDC6F; --verde-deep:#23B855; --amarelo:#FFD400; --coral:#FF8D7D; --erro:#ff8a6b;
+  --ink:#0C2419; --font-d:'Anton',Impact,sans-serif; --font-b:'Archivo',system-ui,sans-serif;
+  --ease:cubic-bezier(.2,.7,.2,1); --max:1180px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased}
+body{font-family:var(--font-b);background:var(--field);color:var(--paper);overflow-x:hidden}
+img,video{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 clamp(22px,6vw,72px)}
+.d{font-family:var(--font-d);font-weight:400;text-transform:uppercase;line-height:.9;letter-spacing:.01em}
+.slant{transform:skewX(-7deg)}
+.eyebrow{font-size:11px;letter-spacing:.26em;text-transform:uppercase;font-weight:700;color:var(--verde)}
+em.hl{font-style:normal;color:var(--verde)}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+
+/* botões */
+.btn{display:inline-flex;align-items:center;gap:10px;border:0;border-radius:999px;padding:16px 30px;font-family:var(--font-b);font-weight:800;font-size:15px;letter-spacing:.02em;text-transform:uppercase;cursor:pointer;transition:transform .25s var(--ease),box-shadow .25s}
+.btn--verde{background:var(--verde);color:var(--field);box-shadow:0 12px 30px rgba(61,220,111,.3)}
+.btn--verde:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(61,220,111,.45)}
+.btn--ghost{background:transparent;color:var(--paper);border:1.5px solid rgba(242,239,230,.35)}
+.btn--ghost:hover{border-color:var(--verde);color:var(--verde)}
+
+/* nav */
+.nav{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:1000;display:flex;align-items:center;gap:16px;background:rgba(7,23,17,.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(61,220,111,.22);border-radius:999px;padding:8px 8px 8px 20px;box-shadow:0 12px 40px rgba(0,0,0,.34)}
+.nav__logo{height:18px}
+.nav__cd{font-size:12px;font-weight:600;color:var(--paper);opacity:.9}
+.nav__cd b{font-family:var(--font-d);font-weight:400;color:var(--verde);font-size:15px}
+.nav__cta{background:var(--verde);color:var(--field);border-radius:999px;padding:10px 18px;font-weight:800;font-size:13px;letter-spacing:.03em;text-transform:uppercase;transition:transform .25s}
+.nav__cta:hover{transform:translateY(-1px)}
+@media(max-width:680px){.nav{gap:10px;padding:7px 7px 7px 14px}.nav__cd{display:none}.nav__logo{height:15px}}
+
+/* secão de vídeo full-bleed */
+.scene{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden}
+.scene .bg{position:absolute;inset:0;z-index:0}
+.scene .bg video{width:100%;height:100%;object-fit:cover;will-change:transform}
+.scene .tint{position:absolute;inset:0;z-index:1}
+.scene .inner{position:relative;z-index:2;width:100%}
+.tint--bottom{background:linear-gradient(180deg,rgba(7,23,17,.32) 0%,rgba(7,23,17,.18) 38%,rgba(7,23,17,.9) 100%)}
+.tint--side{background:linear-gradient(90deg,rgba(7,23,17,.86) 0%,rgba(7,23,17,.5) 46%,rgba(7,23,17,.1) 100%)}
+.tint--center{background:radial-gradient(120% 90% at 50% 50%,rgba(7,23,17,.15),rgba(7,23,17,.82))}
+
+/* HERO */
+#hero{align-items:flex-end}
+#hero .inner{text-align:center;padding:0 22px 9vh}
+#hero .kicker{display:inline-flex;align-items:center;gap:8px;background:var(--verde);color:var(--field);font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding:8px 16px;border-radius:999px;margin-bottom:22px;transform:rotate(-2deg)}
+#hero h1{font-family:var(--font-d);font-weight:400;text-transform:uppercase;font-size:clamp(44px,11vw,120px);line-height:.86;max-width:16ch;margin:0 auto;text-shadow:0 6px 40px rgba(0,0,0,.45)}
+#hero h1 em{font-style:normal;color:var(--verde)}
+#hero .sub{font-size:clamp(15px,2.3vw,20px);font-weight:500;max-width:42ch;margin:20px auto 0;opacity:.92;line-height:1.45}
+#hero .cta-row{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+#hero .cta-note{font-size:12px;opacity:.7;margin-top:16px}
+#hero .hero-logo{height:clamp(30px,5vw,52px);width:auto;margin:0 auto 20px;filter:drop-shadow(0 4px 20px rgba(0,0,0,.4))}
+#hero .hero-pills{display:flex;gap:8px 10px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+#hero .hpill{background:rgba(7,23,17,.5);border:1px solid rgba(61,220,111,.3);border-radius:999px;padding:9px 16px;font-size:13px;font-weight:600;backdrop-filter:blur(6px)}
+#hero .hpill b{font-family:var(--font-d);font-weight:400;color:var(--verde);font-size:1.25em;margin-right:5px}
+.scroll-hint{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);z-index:3;font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.6;display:flex;flex-direction:column;align-items:center;gap:8px}
+.scroll-hint i{width:1px;height:24px;background:var(--paper);animation:drop 1.8s infinite}
+@keyframes drop{0%{transform:scaleY(0);transform-origin:top}40%{transform:scaleY(1);transform-origin:top}60%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ATOS (texto lateral sobre vídeo) */
+.act .inner{max-width:var(--max);margin:0 auto;padding:0 clamp(22px,6vw,72px)}
+.act h2{font-family:var(--font-d);font-weight:400;text-transform:uppercase;font-size:clamp(34px,7.5vw,86px);line-height:.9;max-width:15ch;white-space:pre-line}
+.act h2 em{font-style:normal;color:var(--verde)}
+.act p{font-size:clamp(15px,2.3vw,20px);font-weight:500;max-width:40ch;margin-top:18px;line-height:1.5;opacity:.9}
+.act .eyebrow{margin-bottom:14px;display:block}
+.act .cta-row{margin-top:26px}
+
+/* big numbers benefício */
+.stats{display:flex;gap:clamp(20px,5vw,60px);margin-top:30px;flex-wrap:wrap}
+.stat b{font-family:var(--font-d);font-weight:400;font-size:clamp(46px,9vw,96px);color:var(--verde);line-height:.9;display:block}
+.stat span{font-size:13px;font-weight:600;opacity:.8;letter-spacing:.02em}
+
+/* seam verde */
+.seam{position:relative;height:clamp(120px,20vh,220px);background:var(--paper)}
+.seam::before{content:"";position:absolute;inset:0;background:radial-gradient(150% 135% at 50% -33%, var(--field) 0%, var(--field) 42%, rgba(61,220,111,.92) 52%, rgba(61,220,111,.35) 60%, rgba(61,220,111,0) 74%)}
+.seam.up{background:var(--paper)}
+.seam.up::before{background:radial-gradient(150% 135% at 50% 133%, var(--field) 0%, var(--field) 42%, rgba(61,220,111,.92) 52%, rgba(61,220,111,.35) 60%, rgba(61,220,111,0) 74%)}
+
+/* COMO FUNCIONA — passos (respiro editorial, sem vídeo) */
+#como{background:var(--paper);color:var(--ink);padding:clamp(72px,11vw,120px) 0}
+#como .head{text-align:center;max-width:760px;margin:0 auto 50px}
+#como .eyebrow{color:var(--verde-deep)}
+#como h2{font-family:var(--font-d);font-weight:400;text-transform:uppercase;font-size:clamp(34px,7vw,72px);line-height:.9;margin-top:12px}
+#como h2 em{font-style:normal;color:var(--verde-deep)}
+#como .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,2.6vw,30px);position:relative}
+#como .steps::before{content:"";position:absolute;top:42px;left:9%;right:9%;height:2px;background:repeating-linear-gradient(90deg,rgba(35,184,85,.55) 0 9px,transparent 9px 17px);z-index:0}
+.step{position:relative;z-index:1;text-align:center;padding:0 6px}
+.step .n{font-family:var(--font-d);font-weight:400;font-size:clamp(42px,6vw,68px);color:var(--verde-deep);line-height:1;background:var(--paper);display:inline-block;padding:0 12px}
+.step h3{font-family:var(--font-b);font-weight:800;font-size:clamp(16px,2.4vw,20px);margin:12px 0 8px;line-height:1.15}
+.step p{font-size:14px;line-height:1.5;opacity:.78;max-width:27ch;margin:0 auto}
+.reward{margin-top:48px;display:flex;flex-wrap:wrap;justify-content:center;gap:10px 12px;align-items:center}
+.reward .pill{background:var(--field);color:var(--paper);border-radius:999px;padding:12px 22px;font-weight:600;font-size:clamp(13px,1.9vw,16px)}
+.reward .pill b{font-family:var(--font-d);font-weight:400;color:var(--verde);font-size:1.35em;margin-right:7px}
+.reward .pill--accent{background:var(--verde);color:var(--field)}.reward .pill--accent b{color:var(--field)}
+#como .cta-c{text-align:center;margin-top:36px}
+/* SCROLL-SCRUB: nota fiscal desenrolando */
+#scrub{height:300vh;background:var(--paper);position:relative}
+#scrub .scrub-stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:var(--paper);display:flex;align-items:center;justify-content:center}
+#scrub canvas{position:absolute;inset:0;width:100%;height:100%}
+#scrub .scrub-copy{position:absolute;top:9vh;left:0;width:100%;text-align:center;z-index:2;padding:0 22px;pointer-events:none}
+#scrub .scrub-copy .eyebrow{color:var(--verde-deep)}
+#scrub .scrub-copy h2{font-family:var(--font-d);font-weight:400;text-transform:uppercase;font-size:clamp(30px,6.5vw,64px);line-height:.9;margin-top:10px;color:var(--ink)}
+#scrub .scrub-copy h2 em{font-style:normal;color:var(--verde-deep)}
+#scrub .scrub-hint{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:2;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);opacity:.5;display:flex;flex-direction:column;align-items:center;gap:8px}
+#scrub .scrub-hint i{width:1px;height:22px;background:var(--ink);animation:drop 1.8s infinite}
+@media(max-width:760px){#como .steps{grid-template-columns:1fr 1fr;gap:34px 18px}#como .steps::before{display:none}}
+@media(max-width:430px){#como .steps{grid-template-columns:1fr}}
+
+/* reveals */
+.fade{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.fade.in{opacity:1;transform:none}
+
+/* ===== CADASTRO ===== */
+#cadastro{background:var(--paper);color:var(--ink);padding:clamp(70px,11vw,120px) 0;position:relative}
+#cadastro .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,5vw,64px);align-items:center}
+#cadastro .head .eyebrow{color:var(--verde-deep)}
+#cadastro h2{font-family:var(--font-d);font-weight:400;text-transform:uppercase;font-size:clamp(38px,6.5vw,76px);line-height:.9;margin:12px 0 14px}
+#cadastro h2 em{font-style:normal;color:var(--verde-deep)}
+#cadastro .lead{font-size:clamp(15px,2.2vw,18px);font-weight:500;line-height:1.5;opacity:.85;max-width:42ch}
+#cadastro .reassure{margin-top:22px;display:flex;gap:8px 20px;flex-wrap:wrap;font-size:13px;opacity:.8;color:var(--ink)}
+#cadastro .reassure span::before{content:"✓ ";color:var(--verde-deep);font-weight:700}
+form.cad{background:var(--field);color:var(--paper);border-radius:22px;padding:clamp(24px,4vw,34px);box-shadow:0 30px 70px rgba(12,36,25,.2)}
+.cad .fg{margin-bottom:14px}
+.cad label{display:block;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;opacity:.82;margin-bottom:6px}
+.cad input{width:100%;background:rgba(242,239,230,.06);border:1.5px solid rgba(242,239,230,.18);border-radius:12px;padding:14px 15px;color:var(--paper);font-family:var(--font-b);font-size:16px;transition:border-color .2s}
+.cad input:focus{outline:none;border-color:var(--verde)}
+.cad input::placeholder{color:rgba(242,239,230,.4)}
+.cad .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cad .formsub{font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--verde);margin:20px 0 10px}
+.cad .formsub:first-of-type{margin-top:2px}
+.amigo-row{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) 46px;gap:8px;margin-bottom:8px;align-items:center}
+.amigo-row input{width:100%;min-width:0}
+.amigo-row button{width:46px;height:50px;border:1.5px solid rgba(242,239,230,.18);background:rgba(242,239,230,.05);color:var(--paper);border-radius:12px;font-size:20px;cursor:pointer}
+.amigo-row button:hover{border-color:var(--erro);color:var(--erro)}
+.add-amigo{background:none;border:1.5px dashed rgba(61,220,111,.5);color:var(--verde);border-radius:12px;padding:11px;width:100%;font-weight:700;font-size:13px;cursor:pointer;font-family:var(--font-b);margin-bottom:4px}
+.add-amigo:hover{background:rgba(61,220,111,.08)}
+.cad .honey{position:absolute;left:-9999px}
+.cad .check{display:flex;gap:10px;align-items:flex-start;margin:8px 0 18px;font-size:12.5px;line-height:1.45;opacity:.85;font-weight:500;text-transform:none;letter-spacing:0}
+.cad .check input{width:18px;height:18px;flex:0 0 auto;margin-top:2px;accent-color:var(--verde)}
+.cad .check a{color:var(--verde);text-decoration:underline}
+.cad button{width:100%;justify-content:center}
+.cad .msg{margin-top:12px;font-size:13.5px;font-weight:600;text-align:center;min-height:1em}
+.cad .msg.err{color:var(--erro)} .cad .msg.ok{color:var(--verde)}
+.ok-state{display:none;text-align:center}
+.ok-state.show{display:block}
+.ok-state .badge{font-family:var(--font-d);font-weight:400;font-size:clamp(48px,12vw,76px);color:var(--verde);line-height:1}
+.ok-state h3{font-family:var(--font-d);font-weight:400;text-transform:uppercase;font-size:26px;margin:6px 0 8px;transform:skewX(-6deg)}
+.ok-state .hash{margin-top:14px;font-family:var(--font-d);font-weight:400;font-size:24px;color:var(--verde)}
+@media(max-width:820px){#cadastro .grid{grid-template-columns:1fr}}
+@media(max-width:520px){.cad .two{grid-template-columns:1fr}}
+
+/* ===== MURAL ===== */
+#mural{background:var(--field-deep);padding:clamp(64px,10vw,110px) 0;text-align:center}
+#mural .eyebrow{color:var(--verde)}
+#mural h2{font-family:var(--font-d);font-weight:400;text-transform:uppercase;font-size:clamp(34px,8vw,76px);line-height:.9;margin-top:12px}
+#mural h2 em{font-style:normal;color:var(--verde)}
+#mural .sub{margin-top:14px;font-size:clamp(15px,2.2vw,18px);font-weight:500;opacity:.84}
+#mural .tag{display:inline-block;margin-top:16px;font-family:var(--font-d);font-weight:400;font-size:clamp(22px,4vw,34px);color:var(--verde)}
+#wallEmbed{min-height:160px;margin-top:30px}
+#wallFallback{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:30px}
+.pcard{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:4/5;background:rgba(242,239,230,.05);border:1px solid rgba(242,239,230,.1)}
+.pcard video,.pcard img{width:100%;height:100%;object-fit:cover;opacity:.7}
+.pcard .meta{position:absolute;left:0;bottom:0;width:100%;padding:12px;display:flex;align-items:center;gap:8px;background:linear-gradient(0deg,rgba(7,23,17,.86),transparent);font-size:12px;font-weight:700}
+.pcard .av{width:26px;height:26px;border-radius:50%;background:var(--verde);color:var(--field);display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-size:13px}
+.pcard--cta{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:16px;border:1.5px dashed rgba(61,220,111,.5);background:rgba(61,220,111,.06)}
+.pcard--cta b{font-family:var(--font-d);font-weight:400;font-size:20px;color:var(--verde);line-height:.95}
+.pcard--cta span{font-size:12px;opacity:.78;margin-top:6px}
+.wallNote{font-size:12px;opacity:.5;margin-top:20px}
+@media(max-width:820px){#wallFallback{grid-template-columns:repeat(2,1fr)}}
+
+/* footer */
+footer{background:var(--field);padding:48px 0 40px;border-top:1px solid rgba(61,220,111,.14)}
+footer .frow{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+footer .flogo{height:22px}
+footer .flinks{display:flex;gap:16px;font-size:13px;font-weight:600;opacity:.85;flex-wrap:wrap}
+footer .flinks a:hover{color:var(--verde)}
+footer .disc{font-size:11px;line-height:1.6;opacity:.5;border-top:1px solid rgba(242,239,230,.1);padding-top:18px}
+footer .disc p{margin-bottom:7px}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <img class="nav__logo" src="assets/img/logo-h.png" alt="LANCE! MANUAL">
+  <span class="nav__cd">Acaba em <b id="navcd">--:--:--</b></span>
+  <a href="#cadastro" class="nav__cta">Quero entrar</a>
+</nav>
+
+<!-- HERO -->
+<section class="scene" id="hero">
+  <div class="bg"><video src="assets/video/hero.mp4" poster="assets/img/poster_hero.jpg" autoplay muted loop playsinline></video></div>
+  <div class="tint tint--bottom"></div>
+  <div class="inner">
+    <img class="hero-logo" src="assets/img/logo-h.png" alt="LANCE! MANUAL®">
+    <span class="kicker">⚡ Promo relâmpago do futebol</span>
+    <h1 class="slant">A Manual paga<br>a sua <em>festa</em>.</h1>
+    <p class="sub">Indique um amigo calvo pra Manual. Cada um que virar cliente novo vira <b>R$200 no seu Pix</b> — sem limite.</p>
+    <div class="hero-pills">
+      <span class="hpill"><b>R$200</b> por amigo</span>
+      <span class="hpill"><b>∞</b> sem limite</span>
+      <span class="hpill"><b>Pix</b> até 30/06</span>
+    </div>
+    <div class="cta-row">
+      <a href="#cadastro" class="btn btn--verde">Indicar e ganhar</a>
+      <a href="#como" class="btn btn--ghost">Como funciona</a>
+    </div>
+    <p class="cta-note">Promo relâmpago — encerra 24/06 às 18h59.</p>
+  </div>
+  <div class="scroll-hint">Role pra ver o lance<i></i></div>
+</section>
+
+<!-- SEAM -> COMO FUNCIONA -->
+<div class="seam" aria-hidden="true"></div>
+<section id="como">
+  <div class="wrap">
+    <div class="head fade">
+      <span class="eyebrow">Sem complicação · como funciona</span>
+      <h2 class="slant">Indicou os amigos?<br>A Manual <em>paga a festa</em>.</h2>
+    </div>
+    <div class="steps">
+      <div class="step fade"><div class="n">01</div><h3>Indique seus amigos calvos</h3><p>Cadastre aqui quem você quer indicar pra Manual. Você nem precisa ser cliente.</p></div>
+      <div class="step fade"><div class="n">02</div><h3>Eles começam o tratamento</h3><p>Cada amigo que virar cliente novo, for elegível e finalizar a compra conta como indicação válida.</p></div>
+      <div class="step fade"><div class="n">03</div><h3>Você ganha R$200 por amigo</h3><p>Por cada amigo indicado que virar cliente novo. Sem limite de indicações.</p></div>
+      <div class="step fade"><div class="n">04</div><h3>Receba no Pix até 30/06</h3><p>A gente cai com o Pix na sua conta. Aí é só fazer a boa.</p></div>
+    </div>
+    <div class="reward fade">
+      <span class="pill"><b>R$200</b>por amigo indicado</span>
+      <span class="pill pill--accent"><b>∞</b>sem limite</span>
+      <span class="pill"><b>Pix</b>até 30/06</span>
+      <span class="pill"><b>Novos</b>clientes</span>
+    </div>
+    <div class="cta-c fade"><a href="#cadastro" class="btn btn--verde">Quero indicar e ganhar</a></div>
+  </div>
+</section>
+<!-- SCROLL-SCRUB: nota fiscal desenrolando no scroll (ref Voy x Lilly) -->
+<section id="scrub">
+  <div class="scrub-stage">
+    <canvas id="scrubCanvas"></canvas>
+    <div class="scrub-copy">
+      <span class="eyebrow">A conta é por nossa conta</span>
+      <h2 class="slant">Role e veja a boa<br>chegar <em>paga</em>.</h2>
+    </div>
+    <div class="scrub-hint" aria-hidden="true">role pra desenrolar<i></i></div>
+  </div>
+</section>
+
+<!-- CADASTRO -->
+<section id="cadastro">
+  <div class="wrap">
+    <div class="grid">
+      <div class="head fade">
+        <span class="eyebrow">Última chamada</span>
+        <h2 class="slant">Indique e<br><em>ganhe</em>.</h2>
+        <p class="lead">Indique seus amigos calvos pra Manual. Cada um que virar cliente novo vira R$200 no seu Pix até 30/06 — é a sua festa por nossa conta.</p>
+        <div class="reassure"><span>R$200 por amigo</span><span>Pix até 30/06</span><span>Dados protegidos (LGPD)</span></div>
+      </div>
+      <form class="cad fade" id="form" novalidate>
+        <input class="honey" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <p class="formsub">Seus dados — é pra cá que o Pix cai</p>
+        <div class="fg"><label for="nome">Seu nome completo</label><input id="nome" name="nome" type="text" placeholder="Seu nome" required></div>
+        <div class="two">
+          <div class="fg"><label for="cpf">Seu CPF</label><input id="cpf" name="cpf" inputmode="numeric" placeholder="000.000.000-00" maxlength="14" required></div>
+          <div class="fg"><label for="whats">Seu telefone</label><input id="whats" name="whatsapp" type="tel" inputmode="numeric" placeholder="(00) 00000-0000" maxlength="15" required></div>
+        </div>
+        <div class="two">
+          <div class="fg"><label for="email">Seu e-mail</label><input id="email" name="email" type="email" placeholder="voce@email.com" required></div>
+          <div class="fg"><label for="pix">Sua chave Pix</label><input id="pix" name="pix" type="text" placeholder="CPF, e-mail, telefone..." required></div>
+        </div>
+        <p class="formsub">Os amigos calvos que você indica</p>
+        <div id="amigos"></div>
+        <button type="button" class="add-amigo" id="addAmigo">+ Adicionar amigo</button>
+        <label class="check"><input type="checkbox" id="consent" required><span>Tenho a autorização dos amigos pra indicar o telefone deles e autorizo o uso dos meus dados, conforme o <a href="#" id="regLink">regulamento</a> e a LGPD.</span></label>
+        <button type="submit" class="btn btn--verde" id="submit">Indicar e ganhar</button>
+        <div class="msg" id="msg"></div>
+      </form>
+      <div class="cad ok-state" id="okState" style="grid-column:1/-1;margin-top:10px">
+        <div class="badge" id="ticket">0</div>
+        <h3>Amigos indicados!</h3>
+        <p class="lead" style="margin:0 auto;opacity:.9">Cada amigo que virar cliente novo vira <b>R$200</b> no seu Pix até <b>30/06</b>. Quanto mais amigos calvos, mais boa. Bora espalhar?</p>
+        <div class="hash">#MANUALFezaBoa</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<footer>
+  <div class="wrap">
+    <div class="frow">
+      <img class="flogo" src="assets/img/logo-h.png" alt="LANCE! MANUAL">
+      <div class="flinks"><a href="#hero">Início</a><a href="#cadastro">Participar</a><a href="#mural">Mural</a><a href="#" id="regLink2">Regulamento</a><a href="https://www.manual.co" target="_blank" rel="noopener">manual.co</a></div>
+    </div>
+    <div class="disc">
+      <p><b>Promoção por tempo limitado</b>, sujeita ao regulamento oficial e à disponibilidade. Exige tratamento ativo na Manual e o cumprimento das condições do regulamento.</p>
+      <p>Ação promocional independente da Manual, sem vínculo, patrocínio ou afiliação com entidades esportivas, ligas, federações ou organizadores de eventos oficiais.</p>
+      <p>Tratamentos da Manual envolvem medicamentos sujeitos a prescrição e avaliação médica. Procure orientação de um profissional de saúde. Leia a bula.</p>
+      <p>Ao postar com a hashtag você autoriza a curadoria e o repost da publicação pela Manual. © 2026 Manual.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+/* ===================================================================
+   CONFIG — ÚNICO LUGAR PRA EDITAR. Preencha a URL e está pronto.
+   (depois disso, a Striker só sobe a pasta no domínio — sem editar nada)
+   =================================================================== */
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyCVix3kTm-Qpkm2qIoKv8oLC0iuX88YEEoCpmkSfLk6EGG97XFYXsjs4Wo-xwBoy3E/exec'; // ← Web App do Apps Script (MANUAL)
+const TOKEN           = '';                                    // opcional: mesma senha do CFG.TOKEN no Apps Script
+const REGULAMENTO_URL = '#';                                   // link do regulamento (T&C)
+const GAME_TIME       = new Date('2026-06-24T18:59:00-03:00'); // fim da promo (contador)
+
+(function(){
+  gsap.registerPlugin(ScrollTrigger);
+  const $ = s => document.querySelector(s);
+  const lenis = new Lenis({duration:1.15, smoothWheel:true});
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add(t=>lenis.raf(t*1000)); gsap.ticker.lagSmoothing(0);
+  document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const id=a.getAttribute('href');if(id.length>1){const el=$(id);if(el){e.preventDefault();lenis.scrollTo(el,{offset:-10});}}}));
+
+  /* hero video zoom + content fade */
+  gsap.to('#hero .bg video',{scale:1.18,ease:'none',scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:true}});
+  gsap.to('#hero .inner',{yPercent:-22,opacity:0,ease:'none',scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:true}});
+  /* subtle parallax nas cenas */
+  document.querySelectorAll('.act .bg video').forEach(v=>gsap.fromTo(v,{scale:1.12,yPercent:-4},{yPercent:4,ease:'none',scrollTrigger:{trigger:v.closest('.scene'),start:'top bottom',end:'bottom top',scrub:true}}));
+  /* reveals */
+  document.querySelectorAll('.fade').forEach(el=>ScrollTrigger.create({trigger:el,start:'top 82%',onEnter:()=>el.classList.add('in')}));
+  /* quebras \n nos h2 */
+  document.querySelectorAll('.act h2').forEach(el=>{if(el.innerHTML.includes('\\n'))el.innerHTML=el.innerHTML.replace(/\\n/g,'<br>');});
+
+  /* hack: tocar vídeos (autoplay) e pausar fora da tela p/ performance */
+  const vids=document.querySelectorAll('video');
+  vids.forEach(v=>{v.play().catch(()=>{});});
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting)v.play().catch(()=>{});else v.pause();}),{threshold:.05});
+    vids.forEach(v=>io.observe(v));
+  }
+
+
+  /* countdown */
+  const pad=n=>String(n).padStart(2,'0'),navcd=$('#navcd');
+  function tick(){let d=Math.max(0,GAME_TIME-new Date());const D=Math.floor(d/864e5);d-=D*864e5;const H=Math.floor(d/36e5);d-=H*36e5;const M=Math.floor(d/6e4);d-=M*6e4;const S=Math.floor(d/1e3);navcd.textContent=D>0?(D+'d '+pad(H)+':'+pad(M)):(pad(H)+':'+pad(M)+':'+pad(S));}
+  tick();setInterval(tick,1000);
+
+  /* regulamento links */
+  $('#regLink').href=REGULAMENTO_URL; if($('#regLink2'))$('#regLink2').href=REGULAMENTO_URL;
+
+  /* ===== FORM de INDICAÇÃO (JSONP -> Apps Script) ===== */
+  const form=$('#form'),msg=$('#msg'),submit=$('#submit'),cpf=$('#cpf'),whats=$('#whats'),amigosBox=$('#amigos');
+  const maskTel=v=>{v=v.replace(/\D/g,'').slice(0,11);if(v.length>10)v=v.replace(/(\d{2})(\d{5})(\d{1,4})/,'($1) $2-$3');else if(v.length>6)v=v.replace(/(\d{2})(\d{4})(\d{1,4})/,'($1) $2-$3');else if(v.length>2)v=v.replace(/(\d{2})(\d{1,5})/,'($1) $2');else if(v.length>0)v=v.replace(/(\d{1,2})/,'($1');return v;};
+  cpf.addEventListener('input',()=>{let v=cpf.value.replace(/\D/g,'').slice(0,11);v=v.replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2');cpf.value=v;});
+  whats.addEventListener('input',()=>{whats.value=maskTel(whats.value);});
+  function addAmigo(){const row=document.createElement('div');row.className='amigo-row';
+    const tel=document.createElement('input');tel.className='tel';tel.type='tel';tel.inputMode='numeric';tel.placeholder='Telefone do amigo';tel.maxLength=15;tel.addEventListener('input',()=>tel.value=maskTel(tel.value));
+    const nome=document.createElement('input');nome.className='nome';nome.type='text';nome.placeholder='Nome do amigo';
+    const rm=document.createElement('button');rm.type='button';rm.textContent='×';rm.setAttribute('aria-label','remover');rm.onclick=()=>{if(amigosBox.children.length>1)row.remove();};
+    row.append(tel,nome,rm);amigosBox.appendChild(row);return tel;}
+  addAmigo();
+  $('#addAmigo').addEventListener('click',()=>addAmigo().focus());
+  function validarCPF(c){c=c.replace(/\D/g,'');if(c.length!==11||/^(\d)\1{10}$/.test(c))return false;let s=0,r;for(let i=1;i<=9;i++)s+=parseInt(c[i-1])*(11-i);r=(s*10)%11;if(r===10)r=0;if(r!==parseInt(c[9]))return false;s=0;for(let i=1;i<=10;i++)s+=parseInt(c[i-1])*(12-i);r=(s*10)%11;if(r===10)r=0;return r===parseInt(c[10]);}
+  function validarTel(v){var d=(v||'').replace(/\D/g,'');return d.length===11 && (+d.slice(0,2))>=11 && d[2]==='9';}
+  /* POST no-cors: dados sensíveis (CPF, Pix, telefones) vão no CORPO, nunca na URL. Resposta é opaca → sucesso otimista. */
+  function enviar(data){return fetch(APPS_SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(Object.assign({},data,{token:TOKEN}))});}
+  const MSG={cpf_invalido:'Esse CPF não parece válido. Confere os números.',tel_invalido:'Confere o seu telefone — celular com DDD, ex.: (11) 99999-9999.',tel_amigo_invalido:'Confere o telefone do amigo — celular com DDD, ex.: (11) 99999-9999.',sem_nome_amigo:'Coloque o nome de cada amigo que você indica.',sem_amigo:'Adicione pelo menos um amigo (nome + telefone) pra indicar.',tel_repetido:'Esse telefone está repetido — cada amigo precisa de um número diferente.',tel_proprio:'Esse é o seu próprio número. Indica o telefone do amigo, não o seu. 🙂',sem_pix:'Preenche a sua chave Pix — é pra cá que o dinheiro vai.',sem_consentimento:'Você precisa aceitar o regulamento pra participar.',erro:'Deu ruim no nosso lado. Tenta de novo.'};
+  form.addEventListener('submit',async e=>{e.preventDefault();msg.className='msg';msg.textContent='';
+    if(!form.nome.value.trim()){msg.textContent='Preenche seu nome.';msg.classList.add('err');return;}
+    if(!validarCPF(cpf.value)){msg.textContent=MSG.cpf_invalido;msg.classList.add('err');cpf.focus();return;}
+    if(!validarTel(whats.value)){msg.textContent=MSG.tel_invalido;msg.classList.add('err');whats.focus();return;}
+    if(!form.email.value.includes('@')){msg.textContent='Confere o e-mail.';msg.classList.add('err');form.email.focus();return;}
+    if(!$('#pix').value.trim()){msg.textContent=MSG.sem_pix;msg.classList.add('err');$('#pix').focus();return;}
+    const amigos=[],vistos={},meuTel=whats.value.replace(/\D/g,'');
+    for(const r of amigosBox.querySelectorAll('.amigo-row')){
+      const tel=r.querySelector('.tel').value.trim(), nome=r.querySelector('.nome').value.trim();
+      if(!tel && !nome) continue;
+      if(!validarTel(tel)){msg.textContent=MSG.tel_amigo_invalido;msg.classList.add('err');r.querySelector('.tel').focus();return;}
+      if(!nome){msg.textContent=MSG.sem_nome_amigo;msg.classList.add('err');r.querySelector('.nome').focus();return;}
+      const d=tel.replace(/\D/g,'');
+      if(d===meuTel){msg.textContent=MSG.tel_proprio;msg.classList.add('err');r.querySelector('.tel').focus();return;}
+      if(vistos[d]){msg.textContent=MSG.tel_repetido;msg.classList.add('err');r.querySelector('.tel').focus();return;}
+      vistos[d]=true;
+      amigos.push({tel,nome});
+    }
+    if(!amigos.length){msg.textContent=MSG.sem_amigo;msg.classList.add('err');return;}
+    if(!$('#consent').checked){msg.textContent=MSG.sem_consentimento;msg.classList.add('err');return;}
+    submit.disabled=true;submit.textContent='Enviando...';
+    const data={nome:form.nome.value.trim(),cpf:cpf.value,whatsapp:whats.value,email:form.email.value.trim(),pix:$('#pix').value.trim(),amigos:JSON.stringify(amigos),consent:'true',origem:'LP_FILME',website:form.website.value};
+    try{if(APPS_SCRIPT_URL.startsWith('http'))await enviar(data);
+      $('#ticket').textContent=amigos.length;form.style.display='none';$('#okState').classList.add('show');lenis.scrollTo('#cadastro',{offset:-10});
+    }catch(err){msg.textContent='Sem conexão com o servidor. Tenta de novo.';msg.classList.add('err');}
+    finally{submit.disabled=false;submit.textContent='Indicar e ganhar';}
+  });
+
+  /* ===== SCROLL-SCRUB: nota fiscal desenrolando (ref Voy x Lilly) ===== */
+  (function(){
+    var TOTAL=61, PATH='assets/frames/nota_', cur=-1;
+    var canvas=$('#scrubCanvas'); if(!canvas) return;
+    var ctx=canvas.getContext('2d'), dpr=Math.min(window.devicePixelRatio||1,2), imgs=[];
+    for(var i=1;i<=TOTAL;i++){var im=new Image();im.src=PATH+String(i).padStart(3,'0')+'.jpg';imgs.push(im);}
+    function draw(idx){var img=imgs[idx];if(!img||!img.complete||!img.naturalWidth)return;var cw=canvas.width/dpr,ch=canvas.height/dpr,iw=img.naturalWidth,ih=img.naturalHeight,s=ch>cw?ch/ih:Math.min(cw/iw,ch/ih),dw=iw*s,dh=ih*s;ctx.clearRect(0,0,cw,ch);ctx.fillStyle='#F2EFE6';ctx.fillRect(0,0,cw,ch);ctx.drawImage(img,(cw-dw)/2,(ch-dh)/2,dw,dh);}
+    function resize(){var r=canvas.getBoundingClientRect();canvas.width=Math.max(1,r.width*dpr);canvas.height=Math.max(1,r.height*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);draw(cur>=0?cur:0);}
+    imgs[0].onload=function(){resize();};
+    window.addEventListener('resize',resize); resize();
+    ScrollTrigger.create({trigger:'#scrub',start:'top top',end:'bottom bottom',scrub:true,onUpdate:function(self){var f=Math.min(TOTAL-1,Math.round(self.progress*(TOTAL-1)));if(f!==cur){cur=f;draw(f);}}});
+  })();
+
+  ScrollTrigger.refresh();
+})();
+</script>
+</body>
+</html>
