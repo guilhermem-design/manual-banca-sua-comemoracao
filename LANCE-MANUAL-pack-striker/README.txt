@@ -1,1 +1,0 @@
-A Manual BANCA SUA COMEMORAÇÃO
