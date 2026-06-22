@@ -1,0 +1,151 @@
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyCVix3kTm-Qpkm2qIoKv8oLC0iuX88YEEoCpmkSfLk6EGG97XFYXsjs4Wo-xwBoy3E/exec'; // Web App do Apps Script (MANUAL)
+const TOKEN           = '';                                    // opcional: mesma senha do CFG.TOKEN no Apps Script
+const REGULAMENTO_URL = 'https://cdn.jsdelivr.net/gh/guilhermem-design/manual-banca-sua-comemoracao@main/LANCE-MANUAL-LP/assets/regulamento.pdf';              // PDF do regulamento (tambem disponivel no pacote)
+const UTM_LINK        = 'https://manual.com.br/queda-de-cabelo?utm_source=flashsale&utm_medium=whatsappindicado&utm_campaign=bancasuafesta'; // link enviado ao amigo no WhatsApp (UTM 'whatsappindicado' p/ dados rastrearem o convite)
+const GAME_TIME       = new Date('2026-06-24T18:59:00-03:00'); // fim da promo: 24/06 18h59 (conforme regulamento)
+(function(){
+gsap.registerPlugin(ScrollTrigger);
+const $ = s => document.querySelector(s);
+const lenis = new Lenis({duration:1.15, smoothWheel:true});
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add(t=>lenis.raf(t*1000)); gsap.ticker.lagSmoothing(0);
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const id=a.getAttribute('href');if(id.length>1){const el=$(id);if(el){e.preventDefault();lenis.scrollTo(el,{offset:-10});}}}));
+var RM=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+if(!RM){
+gsap.to('#hero .bg video',{scale:1.18,ease:'none',scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:true}});
+gsap.to('#hero .inner',{yPercent:-22,opacity:0,ease:'none',scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:true}});
+}
+document.documentElement.classList.add('js');
+document.querySelectorAll('.fade:not(.step)').forEach(el=>ScrollTrigger.create({trigger:el,start:'top 82%',onEnter:()=>el.classList.add('in')}));
+(function(){
+var stepsEl=document.querySelector('#como .steps'); if(!stepsEl) return;
+var steps=stepsEl.querySelectorAll('.step');
+if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){steps.forEach(s=>s.classList.add('in'));return;}
+ScrollTrigger.create({trigger:stepsEl,start:'top 80%',onEnter:function(){steps.forEach(function(s,i){setTimeout(function(){s.classList.add('in');},i*120);});}});
+})();
+const vids=document.querySelectorAll('video');
+vids.forEach(v=>{v.play().catch(()=>{});});
+if('IntersectionObserver' in window){
+const io=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting)v.play().catch(()=>{});else v.pause();}),{threshold:.05});
+vids.forEach(v=>io.observe(v));
+}
+const pad=n=>String(n).padStart(2,'0'),navcd=$('#navcd'),heroCd=$('#heroCdVal');
+function fmtCd(){var d=GAME_TIME-new Date();if(d<=0)return 'encerrada';var D=Math.floor(d/864e5);d-=D*864e5;var H=Math.floor(d/36e5);d-=H*36e5;var M=Math.floor(d/6e4);d-=M*6e4;var S=Math.floor(d/1e3);return (D>0?D+'d ':'')+pad(H)+':'+pad(M)+':'+pad(S);}
+function tick(){var t=fmtCd();if(navcd)navcd.textContent=t;if(heroCd)heroCd.textContent=t;}
+tick();setInterval(tick,1000);
+(function(){
+var dlg=document.getElementById('regDialog');
+if(!dlg||typeof dlg.showModal!=='function'){
+['#regLink','#regLink2'].forEach(function(s){var a=$(s);if(a){a.href=REGULAMENTO_URL;a.target='_blank';a.rel='noopener';}});
+return;
+}
+var body=document.getElementById('regBody'), lastFocus=null;
+var REG_HTML_URL='https://cdn.jsdelivr.net/gh/guilhermem-design/manual-banca-sua-comemoracao@main/LANCE-MANUAL-LP/regulamento.html';
+var regLoaded=false;
+function loadReg(){if(regLoaded||!body)return;regLoaded=true;fetch(REG_HTML_URL).then(function(r){return r.text();}).then(function(html){body.innerHTML=html;}).catch(function(){regLoaded=false;body.innerHTML='<p>Nao foi possivel carregar o regulamento. <a href="'+REGULAMENTO_URL+'" target="_blank" rel="noopener">Abrir PDF</a>.</p>';});}
+function openReg(e){loadReg();if(e)e.preventDefault();if(dlg.open)return;lastFocus=document.activeElement;lenis.stop();dlg.showModal();if(body)body.scrollTop=0;}
+function closeReg(){
+if(dlg.classList.contains('is-closing'))return;
+var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+dlg.classList.add('is-closing');
+var done=function(){dlg.classList.remove('is-closing');dlg.close();lenis.start();if(lastFocus&&lastFocus.focus)lastFocus.focus();};
+if(reduce){done();return;}
+var fired=false;
+var onEnd=function(ev){if(ev.target!==dlg&&!(ev.target.classList&&ev.target.classList.contains('reg-sheet')))return;if(fired)return;fired=true;dlg.removeEventListener('transitionend',onEnd);done();};
+dlg.addEventListener('transitionend',onEnd);
+setTimeout(function(){if(!fired){fired=true;dlg.removeEventListener('transitionend',onEnd);done();}},550);
+}
+['#regLink','#regLink2','#regLink3'].forEach(function(sel){var a=$(sel);if(!a)return;a.addEventListener('click',openReg);});
+document.getElementById('regClose').addEventListener('click',closeReg);
+dlg.querySelectorAll('[data-reg-close]').forEach(function(b){b.addEventListener('click',closeReg);});
+dlg.addEventListener('cancel',function(e){e.preventDefault();closeReg();});
+dlg.addEventListener('click',function(e){if(e.target===dlg)closeReg();});
+})();
+const form=$('#form'),msg=$('#msg'),submit=$('#submit'),cpf=$('#cpf'),whats=$('#whats'),amigosBox=$('#amigos');
+const maskTel=v=>{v=v.replace(/\D/g,'').slice(0,11);if(v.length>10)v=v.replace(/(\d{2})(\d{5})(\d{1,4})/,'($1) $2-$3');else if(v.length>6)v=v.replace(/(\d{2})(\d{4})(\d{1,4})/,'($1) $2-$3');else if(v.length>2)v=v.replace(/(\d{2})(\d{1,5})/,'($1) $2');else if(v.length>0)v=v.replace(/(\d{1,2})/,'($1');return v;};
+cpf.addEventListener('input',()=>{let v=cpf.value.replace(/\D/g,'').slice(0,11);v=v.replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2');cpf.value=v;});
+whats.addEventListener('input',()=>{whats.value=maskTel(whats.value);});
+function addAmigo(){const row=document.createElement('div');row.className='amigo-row';
+const tel=document.createElement('input');tel.className='tel';tel.type='tel';tel.inputMode='numeric';tel.placeholder='Telefone do amigo';tel.maxLength=15;tel.addEventListener('input',()=>tel.value=maskTel(tel.value));
+const nome=document.createElement('input');nome.className='nome';nome.type='text';nome.placeholder='Nome do amigo';
+const rm=document.createElement('button');rm.type='button';rm.textContent='×';rm.setAttribute('aria-label','remover');rm.onclick=()=>{if(amigosBox.children.length>1)row.remove();};
+row.append(tel,nome,rm);amigosBox.appendChild(row);return tel;}
+addAmigo();
+$('#addAmigo').addEventListener('click',()=>addAmigo().focus());
+function validarCPF(c){c=c.replace(/\D/g,'');if(c.length!==11||/^(\d)\1{10}$/.test(c))return false;let s=0,r;for(let i=1;i<=9;i++)s+=parseInt(c[i-1])*(11-i);r=(s*10)%11;if(r===10)r=0;if(r!==parseInt(c[9]))return false;s=0;for(let i=1;i<=10;i++)s+=parseInt(c[i-1])*(12-i);r=(s*10)%11;if(r===10)r=0;return r===parseInt(c[10]);}
+function validarTel(v){var d=(v||'').replace(/\D/g,'');return d.length===11 && (+d.slice(0,2))>=11 && d[2]==='9';}
+function enviar(data){return fetch(APPS_SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(Object.assign({},data,{token:TOKEN}))});}
+var WA_ICON='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/></svg>';
+function montarWa(lista){
+var box=$('#waList'); if(!box) return; box.innerHTML='';
+lista.forEach(function(a){
+var phone='55'+(a.tel||'').replace(/\D/g,'');
+var txt='Chamei você pra MANUAL - Banca sua Festa!\nEntra na promoção e garanta seu cabelo 💪\n\n'+UTM_LINK+'\n\n(Valeu mesmo!)';
+var el=document.createElement('a');
+el.className='wa-btn'; el.target='_blank'; el.rel='noopener';
+el.href='https://wa.me/'+phone+'?text='+encodeURIComponent(txt);
+el.innerHTML=WA_ICON+'<span>Chamar '+a.nome+' no WhatsApp</span>';
+box.appendChild(el);
+});
+}
+const MSG={cpf_invalido:'Esse CPF não parece válido. Confere os números.',tel_invalido:'Confere o seu telefone: celular com DDD, ex.: (11) 99999-9999.',tel_amigo_invalido:'Confere o telefone do amigo: celular com DDD, ex.: (11) 99999-9999.',sem_nome_amigo:'Coloque o nome de cada amigo que você indica.',sem_amigo:'Adicione pelo menos um amigo (nome + telefone) pra indicar.',tel_repetido:'Esse telefone está repetido, cada amigo precisa de um número diferente.',tel_proprio:'Esse é o seu próprio número. Indica o telefone do amigo, não o seu. 🙂',sem_pix:'Preenche a sua chave Pix, é pra cá que o dinheiro vai.',sem_consentimento:'Você precisa aceitar o regulamento pra participar.',erro:'Deu ruim no nosso lado. Tenta de novo.'};
+form.addEventListener('submit',async e=>{e.preventDefault();msg.className='msg';msg.textContent='';
+if(!form.nome.value.trim()){msg.textContent='Preenche seu nome.';msg.classList.add('err');return;}
+if(!validarCPF(cpf.value)){msg.textContent=MSG.cpf_invalido;msg.classList.add('err');cpf.focus();return;}
+if(!validarTel(whats.value)){msg.textContent=MSG.tel_invalido;msg.classList.add('err');whats.focus();return;}
+if(!form.email.value.includes('@')){msg.textContent='Confere o e-mail.';msg.classList.add('err');form.email.focus();return;}
+if(!$('#pix').value.trim()){msg.textContent=MSG.sem_pix;msg.classList.add('err');$('#pix').focus();return;}
+const amigos=[],vistos={},meuTel=whats.value.replace(/\D/g,'');
+for(const r of amigosBox.querySelectorAll('.amigo-row')){
+const tel=r.querySelector('.tel').value.trim(), nome=r.querySelector('.nome').value.trim();
+if(!tel && !nome) continue;
+if(!validarTel(tel)){msg.textContent=MSG.tel_amigo_invalido;msg.classList.add('err');r.querySelector('.tel').focus();return;}
+if(!nome){msg.textContent=MSG.sem_nome_amigo;msg.classList.add('err');r.querySelector('.nome').focus();return;}
+const d=tel.replace(/\D/g,'');
+if(d===meuTel){msg.textContent=MSG.tel_proprio;msg.classList.add('err');r.querySelector('.tel').focus();return;}
+if(vistos[d]){msg.textContent=MSG.tel_repetido;msg.classList.add('err');r.querySelector('.tel').focus();return;}
+vistos[d]=true;
+amigos.push({tel,nome});
+}
+if(!amigos.length){msg.textContent=MSG.sem_amigo;msg.classList.add('err');return;}
+if(!$('#consent').checked){msg.textContent=MSG.sem_consentimento;msg.classList.add('err');return;}
+submit.disabled=true;submit.textContent='Enviando...';
+const data={nome:form.nome.value.trim(),cpf:cpf.value,whatsapp:whats.value,email:form.email.value.trim(),pix:$('#pix').value.trim(),amigos:JSON.stringify(amigos),consent:'true',origem:'LP_Campanha',website:form.website.value};
+try{if(APPS_SCRIPT_URL.startsWith('http'))await enviar(data);
+$('#ticket').textContent=amigos.length;var _lbl=$('#ticketLbl');if(_lbl)_lbl.textContent=amigos.length===1?'indicação':'indicações';montarWa(amigos);form.style.display='none';$('#okState').classList.add('show');lenis.scrollTo('#cadastro',{offset:-10});
+}catch(err){msg.textContent='Deu ruim na conexão. Respira e tenta de novo.';msg.classList.add('err');}
+finally{submit.disabled=false;submit.textContent='Indicar e ganhar';}
+});
+(function(){
+var TOTAL=61, PATH='https://cdn.jsdelivr.net/gh/guilhermem-design/manual-banca-sua-comemoracao@main/LANCE-MANUAL-LP/assets/frames/nota_', cur=-1;
+var canvas=$('#scrubCanvas'); if(!canvas) return;
+var ctx=canvas.getContext('2d'), dpr=Math.min(window.devicePixelRatio||1,2), imgs=[];
+for(var i=1;i<=TOTAL;i++){var im=new Image();im.src=PATH+String(i).padStart(3,'0')+'.jpg';imgs.push(im);}
+function draw(idx){var img=imgs[idx];if(!img||!img.complete||!img.naturalWidth)return;var cw=canvas.width/dpr,ch=canvas.height/dpr,iw=img.naturalWidth,ih=img.naturalHeight,s=ch>cw?ch/ih:Math.min(cw/iw,ch/ih),dw=iw*s,dh=ih*s;ctx.clearRect(0,0,cw,ch);ctx.fillStyle='#F2EFE6';ctx.fillRect(0,0,cw,ch);ctx.drawImage(img,(cw-dw)/2,(ch-dh)/2,dw,dh);}
+function resize(){var r=canvas.getBoundingClientRect();canvas.width=Math.max(1,r.width*dpr);canvas.height=Math.max(1,r.height*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);draw(cur>=0?cur:0);}
+imgs[0].onload=function(){resize();};
+window.addEventListener('resize',resize); resize();
+ScrollTrigger.create({trigger:'#scrub',start:'top top',end:'bottom bottom',scrub:true,onUpdate:function(self){var f=Math.min(TOTAL-1,Math.round(self.progress*(TOTAL-1)));if(f!==cur){cur=f;draw(f);}}});
+})();
+(function(){
+var stamp=document.getElementById('taPago'); if(!stamp) return;
+var ink=stamp.querySelector('.stamp__ink');
+var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+if(reduce){
+ScrollTrigger.create({trigger:'#scrub',start:'top top',end:'bottom bottom',onUpdate:function(self){stamp.classList.toggle('is-paid',self.progress>=0.9);}});
+return;
+}
+var startScale=window.innerWidth<480?1.32:1.6;   
+var tl=gsap.timeline({paused:true});
+tl.fromTo(stamp,{opacity:0},{opacity:1,duration:.01})
+.fromTo(ink,{opacity:0,scale:startScale,filter:'url(#inkBleed) blur(6px)'},{opacity:.95,scale:1,filter:'url(#inkBleed) blur(0px)',duration:.34,ease:'power4.out'})
+.to(ink,{scale:.985,duration:.06,ease:'power1.in'})
+.to(ink,{scale:1,duration:.12,ease:'power2.out'});
+var stamped=false;
+ScrollTrigger.create({trigger:'#scrub',start:'top top',end:'bottom bottom',onUpdate:function(self){
+if(self.progress>=0.9 && !stamped){stamped=true;tl.play();}
+else if(self.progress<0.88 && stamped){stamped=false;tl.reverse();}
+}});
+})();
+ScrollTrigger.refresh();
+})();
